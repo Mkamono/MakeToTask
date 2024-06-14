@@ -1,6 +1,7 @@
 version: "3"
 
 includes:
+  gh: ./taskfiles/github.yaml
   init: ./taskfiles/init.yaml
 
 tasks:
