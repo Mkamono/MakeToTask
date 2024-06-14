@@ -14,7 +14,8 @@
 				"usernamehw.errorlens",
 				"task.vscode-task",
 				"streetsidesoftware.code-spell-checker",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	},

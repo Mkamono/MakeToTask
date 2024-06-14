@@ -3,10 +3,15 @@ version: "3"
 tasks:
   all:
     cmds:
-      - task: setup-completion
+      - task: setup-task-completion
+      - task: update-fish-completions
 
-  setup-completion:
+  setup-task-completion:
     cmds:
       - curl -sSfL -o /home/ubuntu/.config/fish/completions/task.fish https://raw.githubusercontent.com/go-task/task/main/completion/fish/task.fish
     status:
       - test -f ~/.config/fish/completions/task.fish
+
+  update-fish-completions:
+    cmds:
+      - fish -c fish_update_completions
