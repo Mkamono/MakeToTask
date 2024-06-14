@@ -8,7 +8,7 @@ tasks:
     cmds:
       - echo 'Hello World from Task!'
 
-  greet_var:
+  greet-var:
     cmds:
       - echo {{ .GREETING }}
     vars:
