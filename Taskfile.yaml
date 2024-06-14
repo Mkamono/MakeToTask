@@ -13,3 +13,10 @@ tasks:
       - echo {{ .GREETING }}
     vars:
       GREETING: "Hello!"
+
+  greet-loop:
+    cmds:
+      - for: ["Good Morning!", "Good Afternoon!", "Good Evening!"]
+        task: greet-var
+        vars:
+          GREETING: "{{ .ITEM }}"
