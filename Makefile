@@ -30,3 +30,12 @@ check-status:
 	else \
 		echo 'something went wrong'; \
 	fi
+
+.PHONY: yes-or-no
+yes-or-no:
+	@read -p "Are you sure? [y/N] " answer; \
+	if [ "$$answer" = "y" ]; then \
+		echo 'You said yes'; \
+	else \
+		echo 'You said no'; \
+	fi

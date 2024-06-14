@@ -35,3 +35,8 @@ tasks:
     status:
       - test -d .vscode
       - test -f Taskfile.yaml
+
+  yes-or-no:
+    prompt: Are you sure?
+    cmds:
+      - echo 'You said yes'
