@@ -21,7 +21,8 @@
 	},
 	"features": {
 		"ghcr.io/eitsupi/devcontainer-features/go-task:1": {},
-		"ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {}
+		"ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 	"onCreateCommand": "task init:all"
 }
