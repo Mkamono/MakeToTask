@@ -28,3 +28,10 @@ tasks:
       - Taskfile.yaml
     generates:
       - Taskfile.yaml.copy
+
+  check-status:
+    cmds:
+      - echo 'something went wrong'
+    status:
+      - test -d .vscode
+      - test -f Taskfile.yaml

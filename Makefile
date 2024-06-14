@@ -22,3 +22,11 @@ source-and-generate:
 
 makefile.copy: Makefile
 	cp Makefile makefile.copy
+
+.PHONY: check-status
+check-status:
+	@if [ -d .vscode ] && [ -f Makefile ]; then \
+		exit 0; \
+	else \
+		echo 'something went wrong'; \
+	fi
