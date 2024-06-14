@@ -1,0 +1,31 @@
+version: "3"
+
+tasks:
+  show-installation:
+    desc: Show installation for GitHub CLI if not installed
+    cmds:
+      - echo "github cli seems to be not installed. Please see https://github.com/cli/cli"
+    silent: true
+    status:
+      - test -x "$(command -v gh)"
+
+  login:
+    desc: Login to GitHub
+    deps:
+      - show-installation
+    cmds:
+      - gh auth login
+    status:
+      - gh auth status
+    silent: true
+
+  create-test-repo:
+    desc: Create a test repository
+    deps:
+      - login
+    cmds:
+      - gh repo create {{ .GH_REPO }} --private --source=. --remote=upstream
+    status:
+      - gh repo view {{ .GH_REPO }}
+    vars:
+      GH_REPO: MakeToTask-test
