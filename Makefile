@@ -15,3 +15,10 @@ greet-loop:
 	for i in $(LIST); do \
 		make -s greet-var GREETING=$$i; \
 	done
+
+.PHONY: source-and-generate
+source-and-generate:
+	make makefile.copy
+
+makefile.copy: Makefile
+	cp Makefile makefile.copy

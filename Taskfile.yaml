@@ -20,3 +20,11 @@ tasks:
         task: greet-var
         vars:
           GREETING: "{{ .ITEM }}"
+
+  source-and-generate:
+    cmds:
+      - cp Taskfile.yaml Taskfile.yaml.copy
+    sources:
+      - Taskfile.yaml
+    generates:
+      - Taskfile.yaml.copy
