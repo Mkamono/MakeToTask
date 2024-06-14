@@ -5,6 +5,6 @@ greet:
 
 GREETING = Hello!
 
-.PHONY: greet_var
+.PHONY: greet-var
 greet-var:
 	echo $(GREETING)
