@@ -40,3 +40,11 @@ tasks:
     prompt: Are you sure?
     cmds:
       - echo 'You said yes'
+
+  # Makefileの変更を監視してタスクを実行
+  watch-makefile:
+    cmds: 
+      - echo 'Makefile changed!'
+    watch: true
+    sources:
+      - Makefile
