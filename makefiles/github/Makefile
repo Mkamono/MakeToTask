@@ -10,8 +10,13 @@ show-installation:
 	fi
 
 .PHONY: clean
-clean: delete-repo-env delete-test-repo
-	@gh auth logout
+clean:
+	@read -p "Are you sure? [y,N]:" ans; \
+	if [ "$$ans" = y ]; then  \
+		make delete-repo-env; \
+		make delete-test-repo; \
+		gh auth logout; \
+	fi
 
 STATUS = $(shell gh auth status)
 .PHONY: login
