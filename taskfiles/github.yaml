@@ -16,6 +16,16 @@ tasks:
     status:
       - test -x "$(command -v gh)"
 
+  clean:
+    desc: Clean up the test repository
+    deps:
+      - login
+    cmds:
+      - task: delete-repo-env
+      - task: delete-test-repo
+      - gh auth logout
+    silent: true
+
   login:
     desc: Login to GitHub
     deps:
