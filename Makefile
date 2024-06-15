@@ -1,3 +1,6 @@
+include makefiles/github/Makefile
+
+
 .PHONY: greet
 greet:
 	echo 'Hello World from Make!'
