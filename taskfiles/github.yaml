@@ -1,5 +1,12 @@
 version: "3"
 
+env:
+  TEST_REPO: MakeToTask-test2
+  TEST_REMOTE_REPO: upstream
+  TEST_GITHUB_ENV: TEST_ENV_VAR
+  GITHUB_USER:
+    sh: gh config get -h github.com user
+
 tasks:
   show-installation:
     desc: Show installation for GitHub CLI if not installed
@@ -14,7 +21,7 @@ tasks:
     deps:
       - show-installation
     cmds:
-      - gh auth login
+      - gh auth login -h github.com -s delete_repo
     status:
       - gh auth status
     silent: true
@@ -24,8 +31,28 @@ tasks:
     deps:
       - login
     cmds:
-      - gh repo create {{ .GH_REPO }} --private --source=. --remote=upstream
+      - gh repo create {{ .TEST_REPO }} --private --source=. --remote={{ .TEST_REMOTE_REPO }}
     status:
-      - gh repo view {{ .GH_REPO }}
-    vars:
-      GH_REPO: MakeToTask-test
+      - gh repo view {{ .TEST_REPO }}
+
+  delete-test-repo:
+    desc: Delete the test repository
+    deps:
+      - login
+    cmds:
+      - gh repo delete {{ .TEST_REPO }} --yes
+      - git remote remove {{ .TEST_REMOTE_REPO }}
+    status:
+      - test -z "$(gh repo view {{ .TEST_REPO }})"
+
+  set-repo-env:
+    desc: Set the repository environment
+    cmds:
+      - gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} set {{ .TEST_GITHUB_ENV }} -b "test-value"
+
+  delete-repo-env:
+    desc: Delete the repository environment
+    cmds:
+      - gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} delete {{ .TEST_GITHUB_ENV }}
+    status:
+      - test -z "$(gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} list --json name --jq .[].name | grep -x "{{ .TEST_GITHUB_ENV }}")"
