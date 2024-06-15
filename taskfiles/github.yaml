@@ -5,7 +5,7 @@ env:
   TEST_REMOTE_REPO: upstream
   TEST_GITHUB_ENV: TEST_ENV_VAR
   GITHUB_USER:
-    sh: gh config get -h github.com user
+    sh: gh config get -h github.com user || echo unknown
 
 tasks:
   show-installation:
