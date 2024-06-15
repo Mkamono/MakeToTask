@@ -6,12 +6,10 @@ includes:
 
 tasks:
   greet:
-    cmds:
-      - echo 'Hello World from Task!'
+    cmd: echo 'Hello World from Task!'
 
   greet-var:
-    cmds:
-      - echo {{ .GREETING }}
+    cmd: echo {{ .GREETING }}
     vars:
       GREETING: "Hello!"
 
@@ -23,29 +21,25 @@ tasks:
           GREETING: "{{ .ITEM }}"
 
   source-and-generate:
-    cmds:
-      - cp Taskfile.yaml Taskfile.yaml.copy
+    cmd: cp Taskfile.yaml Taskfile.yaml.copy
     sources:
       - Taskfile.yaml
     generates:
       - Taskfile.yaml.copy
 
   check-status:
-    cmds:
-      - echo 'something went wrong'
+    cmd: echo 'something went wrong'
     status:
       - test -d .vscode
       - test -f Taskfile.yaml
 
   yes-or-no:
     prompt: Are you sure?
-    cmds:
-      - echo 'You said yes'
+    cmd: echo 'You said yes'
 
   # Makefileの変更を監視してタスクを実行
   watch-makefile:
-    cmds: 
-      - echo 'Makefile changed!'
+    cmd: echo 'Makefile changed!'
     watch: true
     sources:
       - Makefile
