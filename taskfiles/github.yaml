@@ -47,6 +47,8 @@ tasks:
 
   set-repo-env:
     desc: Set the repository environment
+    deps:
+      - create-test-repo
     cmds:
       - gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} set {{ .TEST_GITHUB_ENV }} -b "test-value"
 
