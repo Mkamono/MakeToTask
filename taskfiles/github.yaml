@@ -9,7 +9,6 @@ env:
 
 tasks:
   show-installation:
-    desc: Show installation for GitHub CLI if not installed
     cmds:
       - echo "github cli seems to be not installed. Please see https://github.com/cli/cli"
     silent: true
@@ -17,7 +16,6 @@ tasks:
       - test -x "$(command -v gh)"
 
   clean:
-    desc: Clean up the test repository
     deps:
       - login
     cmds:
@@ -27,7 +25,6 @@ tasks:
     silent: true
 
   login:
-    desc: Login to GitHub
     deps:
       - show-installation
     cmds:
@@ -37,7 +34,6 @@ tasks:
     silent: true
 
   create-test-repo:
-    desc: Create a test repository
     deps:
       - login
     cmds:
@@ -45,7 +41,6 @@ tasks:
         ignore_error: true
 
   delete-test-repo:
-    desc: Delete the test repository
     deps:
       - login
     cmds:
@@ -55,14 +50,12 @@ tasks:
         ignore_error: true
 
   set-repo-env:
-    desc: Set the repository environment
     deps:
       - create-test-repo
     cmds:
       - gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} set {{ .TEST_GITHUB_ENV }} -b "test-value"
 
   delete-repo-env:
-    desc: Delete the repository environment
     cmds:
       - cmd: gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} delete {{ .TEST_GITHUB_ENV }}
         ignore_error: true
