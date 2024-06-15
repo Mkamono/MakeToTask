@@ -41,19 +41,18 @@ tasks:
     deps:
       - login
     cmds:
-      - gh repo create {{ .TEST_REPO }} --private --source=. --remote={{ .TEST_REMOTE_REPO }}
-    status:
-      - gh repo view {{ .TEST_REPO }}
+      - cmd: gh repo create {{ .TEST_REPO }} --private --source=. --remote={{ .TEST_REMOTE_REPO }}
+        ignore_error: true
 
   delete-test-repo:
     desc: Delete the test repository
     deps:
       - login
     cmds:
-      - gh repo delete {{ .TEST_REPO }} --yes
-      - git remote remove {{ .TEST_REMOTE_REPO }}
-    status:
-      - test -z "$(gh repo view {{ .TEST_REPO }})"
+      - cmd: gh repo delete {{ .TEST_REPO }} --yes
+        ignore_error: true
+      - cmd: git remote remove {{ .TEST_REMOTE_REPO }}
+        ignore_error: true
 
   set-repo-env:
     desc: Set the repository environment
@@ -65,6 +64,5 @@ tasks:
   delete-repo-env:
     desc: Delete the repository environment
     cmds:
-      - gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} delete {{ .TEST_GITHUB_ENV }}
-    status:
-      - test -z "$(gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} list --json name --jq .[].name | grep -x "{{ .TEST_GITHUB_ENV }}")"
+      - cmd: gh secret --repo {{ .GITHUB_USER }}/{{ .TEST_REPO }} delete {{ .TEST_GITHUB_ENV }}
+        ignore_error: true
