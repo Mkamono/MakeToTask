@@ -15,6 +15,7 @@ tasks:
       - test -x "$(command -v gh)"
 
   clean:
+    prompt: "Are you sure?"
     deps:
       - login
     cmds:
